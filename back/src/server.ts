@@ -1,6 +1,14 @@
-import "reflect-metadata";
-import express from "express";
+// src/server.ts
+import { AppDataSource } from "./data-source";
+import app from "./app";
 
-const app = express();
+AppDataSource.initialize()
+  .then(async () => {
+    console.log("Database connected.");
 
-app.listen(3000, () => console.log("Server is running"));
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`App is running on https://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => console.error(err));
