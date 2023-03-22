@@ -1,5 +1,6 @@
 // src/server.ts
 import { AppDataSource } from "./data-source";
+import "dotenv/config";
 import app from "./app";
 
 AppDataSource.initialize()
