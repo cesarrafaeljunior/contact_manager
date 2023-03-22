@@ -7,3 +7,12 @@ export const clientSchema = z.object({
   password: z.string({ required_error: "password is required" }).min(8).max(10),
   telephone: z.string().max(10).optional(),
 });
+
+export const clientWhitoutPassword = z.object({
+  id: z.string().uuid().optional(),
+  fullName: z.string().optional(),
+  username: z.string().optional(),
+  email: z.string().email().optional(),
+  telephone: z.string().nullable(),
+  createdAt: z.date().optional(),
+});
