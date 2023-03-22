@@ -1,6 +1,6 @@
-// import { Router } from "express";
+import { Router } from "express";
 
-// export const contactRoutes = Router();
+export const contactRoutes = Router();
 
 // contactRoutes.post();
 // contactRoutes.get();
