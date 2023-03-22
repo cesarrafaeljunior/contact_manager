@@ -3,11 +3,11 @@ import "dotenv/config";
 import path from "path";
 import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
+import { Client } from "./entities/client.entity";
+import { Contact } from "./entities/contact.entity";
+import { InitialMigration1679494632829 } from "./database/migrations/1679494632829-InitialMigration";
 
 const dataSourceConfig = (): DataSourceOptions => {
-  const entitiesPath: string = path.join(__dirname, "./entities/**.{ts,js}");
-  const migrationPath: string = path.join(__dirname, "./migrations/**.{ts,js}");
-
   const dbUrl: string | undefined = process.env.PGDATABASE;
 
   if (!dbUrl) throw new Error("Missing env var: 'DATABASE_URL'");
@@ -19,7 +19,7 @@ const dataSourceConfig = (): DataSourceOptions => {
       type: "sqlite",
       database: ":memory:",
       synchronize: true,
-      entities: [entitiesPath],
+      entities: [Client, Contact],
     };
   }
 
@@ -28,8 +28,8 @@ const dataSourceConfig = (): DataSourceOptions => {
     url: dbUrl,
     synchronize: false,
     logging: true,
-    entities: [entitiesPath],
-    migrations: [migrationPath],
+    entities: [Client, Contact],
+    migrations: [InitialMigration1679494632829],
   };
 };
 
