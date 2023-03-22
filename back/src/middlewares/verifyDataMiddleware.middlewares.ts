@@ -10,6 +10,6 @@ export const verifyMiddleware =
       throw new AppError(formattedErrors, 400);
     }
 
-    req.body = validatedData;
+    req.body = validatedData.data;
     return next();
   };
