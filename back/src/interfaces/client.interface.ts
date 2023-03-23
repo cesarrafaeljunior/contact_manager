@@ -1,17 +1,10 @@
-export interface iClient {
-  fullName: string;
-  username: string;
-  email: string;
-  password: string;
-  telephone: string;
-}
+import {
+  createClientSchema,
+  returnClientSchemaWithoutPassword,
+} from "../schemas/client.schemas";
+import { z } from "zod";
 
-export interface iClientReturn {
-  fullName: string;
-  username: string;
-  email: string;
-  password: string;
-  telephone: string;
-  id: string;
-  createdAt: Date;
-}
+export type IClientRequest = z.infer<typeof createClientSchema>;
+export type IClientWithoutPassword = z.infer<
+  typeof returnClientSchemaWithoutPassword
+>;
