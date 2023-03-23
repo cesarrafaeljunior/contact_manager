@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createClientController,
   deleteClientController,
+  retrieveClientController,
   updateClientController,
 } from "../controllers/client.controllers";
 import { verifySchemaMiddleware } from "../middlewares/verifyDataMiddleware.middlewares";
@@ -21,7 +22,13 @@ clientRoutes.post(
   verifySchemaMiddleware(createClientSchema),
   createClientController
 );
-// clientRoutes.get();
+clientRoutes.get(
+  "/:id",
+  verifyUuidMiddleware(verifyUuidSchema),
+  verifyTokenMiddleware,
+  verifyOwnerAccountMiddleware,
+  retrieveClientController
+);
 clientRoutes.patch(
   "/:id",
   verifyUuidMiddleware(verifyUuidSchema),
