@@ -21,8 +21,16 @@ const verifyUuidSchema = z.object({
   id: z.string().uuid(),
 });
 
+const updateClientSchema = z.object({
+  fullName: z.string().max(50).optional(),
+  username: z.string().max(50).optional(),
+  email: z.string().max(50).optional(),
+  telephone: z.string().max(50).optional(),
+});
+
 export {
   createClientSchema,
   returnClientSchemaWithoutPassword,
   verifyUuidSchema,
+  updateClientSchema,
 };
