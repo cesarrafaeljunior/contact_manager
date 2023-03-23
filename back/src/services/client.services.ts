@@ -1,13 +1,17 @@
 import { AppDataSource } from "../data-source";
 import { Client } from "../entities/client.entity";
 import { AppError } from "../errors/apperror.errors";
-import { iClient, iClientReturn } from "../interfaces/client.interface";
-import { clientWhitoutPassword } from "../schemas/client.schemas";
-
+import {
+  IClientRequest,
+  IClientWithoutPassword,
+} from "../interfaces/client.interface";
+import { returnClientSchemaWithoutPassword } from "../schemas/client.schemas";
+import { Repository } from "typeorm";
 export const createClientService = async (
-  clientData: iClient
-): Promise<any> => {
-  const clientRepository = AppDataSource.getRepository(Client);
+  clientData: IClientRequest
+): Promise<IClientWithoutPassword> => {
+  const clientRepository: Repository<IClientRequest> =
+    AppDataSource.getRepository(Client);
 
   const verifyUser = await clientRepository.findOneBy({
     email: clientData.email,
@@ -21,11 +25,7 @@ export const createClientService = async (
 
   await clientRepository.save(createClient);
 
-  const clientResponse = await clientWhitoutPassword.safeParseAsync(
-    createClient
-  );
+  const clientResponse = returnClientSchemaWithoutPassword.parse(createClient);
 
-  if (clientResponse.success) {
-    return clientResponse.data;
-  }
+  return clientResponse;
 };
