@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../errors/apperror.errors";
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 import "dotenv/config";
 
 export const verifyTokenMiddleware = (
@@ -16,12 +16,15 @@ export const verifyTokenMiddleware = (
 
   const token = authToken.split(" ")[1];
 
-  jwt.verify(token, "SECRET_KEY", (error, decoded) => {
+  jwt.verify(token, "SECRET_KEY", (error, decoded: any) => {
     if (error) {
       throw new AppError(`${error}`, 401);
     }
 
-    console.log(decoded);
+    req.client = {
+      id: decoded.sub,
+      username: decoded.username,
+    };
 
     return next();
   });
