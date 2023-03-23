@@ -5,6 +5,7 @@ import {
 } from "../controllers/client.controllers";
 import { verifySchemaMiddleware } from "../middlewares/verifyDataMiddleware.middlewares";
 import { verifyUuidMiddleware } from "../middlewares/verifyIsValidUuid.middleware";
+import { verifyTokenMiddleware } from "../middlewares/verifyTokenMiddleware.middleware";
 import {
   createClientSchema,
   verifyUuidSchema,
@@ -22,5 +23,6 @@ clientRoutes.post(
 clientRoutes.delete(
   "/:id",
   verifyUuidMiddleware(verifyUuidSchema),
+  verifyTokenMiddleware,
   deleteClientController
 );
