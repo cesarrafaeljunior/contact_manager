@@ -8,17 +8,21 @@ const createClientSchema = z.object({
   telephone: z.string().max(10).nullable().optional(),
 });
 
-const returnClientSchema = createClientSchema.extend({
-  id: z.string(),
-  createdAt: z.date(),
-});
+const returnClientSchemaWithoutPassword = createClientSchema
+  .omit({
+    password: true,
+  })
+  .extend({
+    id: z.string().optional(),
+    createdAt: z.date().optional(),
+  });
 
-const returnClientSchemaWithoutPassword = returnClientSchema.omit({
-  password: true,
+const verifyUuidSchema = z.object({
+  id: z.string().uuid(),
 });
 
 export {
   createClientSchema,
-  returnClientSchema,
   returnClientSchemaWithoutPassword,
+  verifyUuidSchema,
 };
