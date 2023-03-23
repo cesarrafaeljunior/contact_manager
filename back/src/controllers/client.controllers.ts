@@ -19,3 +19,7 @@ export const deleteClientController = async (req: Request, res: Response) => {
 
   return res.status(204).json();
 };
+
+export const updateClientController = async (req: Request, res: Response) => {
+  return res.status(200).json({});
+};
