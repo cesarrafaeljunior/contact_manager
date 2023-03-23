@@ -3,14 +3,7 @@ import { AppDataSource } from "../../data-source";
 import { Client } from "../../entities/client.entity";
 import { AppError } from "../../errors/apperror.errors";
 
-export const deleteClientService = async (
-  clientId: string,
-  clientLoggedId: string
-): Promise<{}> => {
-  if (clientId != clientLoggedId) {
-    throw new AppError("Permission denied", 401);
-  }
-
+export const deleteClientService = async (clientId: string): Promise<{}> => {
   const clientRepository = AppDataSource.getRepository(Client);
 
   const client = await clientRepository.findOneBy({
