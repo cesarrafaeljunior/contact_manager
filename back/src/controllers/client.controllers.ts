@@ -13,7 +13,9 @@ export const createClientController = async (req: Request, res: Response) => {
 
 export const deleteClientController = async (req: Request, res: Response) => {
   const clientId: string = req.params.id;
-  await deleteClientService(clientId);
+  const clientLoggedId: string = req.client.id;
+
+  await deleteClientService(clientId, clientLoggedId);
 
   return res.status(204).json();
 };
