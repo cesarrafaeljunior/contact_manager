@@ -3,6 +3,7 @@ import { IClientRequest } from "../interfaces/client.interface";
 import { verifyUuidSchema } from "../schemas/client.schemas";
 import { createClientService } from "../services/client/createClient.service";
 import { deleteClientService } from "../services/client/deleteClient.service";
+import { updateClientService } from "../services/client/updateClient.service";
 
 export const createClientController = async (req: Request, res: Response) => {
   const client: IClientRequest = req.body;
@@ -13,13 +14,17 @@ export const createClientController = async (req: Request, res: Response) => {
 
 export const deleteClientController = async (req: Request, res: Response) => {
   const clientId: string = req.params.id;
-  const clientLoggedId: string = req.client.id;
 
-  await deleteClientService(clientId, clientLoggedId);
+  await deleteClientService(clientId);
 
   return res.status(204).json();
 };
 
 export const updateClientController = async (req: Request, res: Response) => {
-  return res.status(200).json({});
+  const clientId: string = req.params.id;
+  const clientData = req.body;
+
+  const clientUpdated = await updateClientService(clientData, clientId);
+
+  return res.status(200).json(clientUpdated);
 };
