@@ -15,19 +15,19 @@ export class Client {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: "varchar", length: 25 })
   fullName: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: "varchar", length: 25 })
   username: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: "varchar", length: 25 })
   email: string;
 
   @Column({ type: "varchar", length: 120 })
   password: string;
 
-  @Column({ type: "varchar", length: 50, nullable: true })
+  @Column({ type: "varchar", length: 20 })
   telephone: string;
 
   @CreateDateColumn()

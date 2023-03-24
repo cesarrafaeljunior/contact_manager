@@ -5,8 +5,7 @@ import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
 import { Client } from "./entities/client.entity";
 import { Contact } from "./entities/contact.entity";
-import { InitialMigration1679494632829 as migration_1 } from "./database/migrations/1679494632829-InitialMigration";
-import { AlterLengthPassword1679545148667 as migration_2 } from "./database/migrations/1679545148667-AlterLengthPassword";
+import { InitialMigration1679674569352 as migration_1 } from "./database/migrations/1679674569352-InitialMigration";
 
 const dataSourceConfig = (): DataSourceOptions => {
   const dbUrl: string | undefined = process.env.PGDATABASE;
@@ -30,7 +29,7 @@ const dataSourceConfig = (): DataSourceOptions => {
     synchronize: false,
     logging: true,
     entities: [Client, Contact],
-    migrations: [migration_1, migration_2],
+    migrations: [migration_1],
   };
 };
 
