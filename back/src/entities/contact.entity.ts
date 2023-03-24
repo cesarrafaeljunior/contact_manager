@@ -12,13 +12,13 @@ export class Contact {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: "varchar", length: 25 })
   fullName: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: "varchar", length: 25 })
   email: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: "varchar", length: 20 })
   telephone: string;
 
   @CreateDateColumn()
