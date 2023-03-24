@@ -1,6 +1,18 @@
 import { Router } from "express";
-import { createContactController } from "../controllers/contact.controllers";
+import {
+  createContactController,
+  deleteContactController,
+  retrieveContactController,
+  retrieveEspecificContactController,
+  updateContactController,
+} from "../controllers/contact.controllers";
 import { verifySchemaMiddleware } from "../middlewares/verifyDataMiddleware.middlewares";
+import { verifyUuidMiddleware } from "../middlewares/verifyIsValidUuid.middleware";
+import { verifyTokenMiddleware } from "../middlewares/verifyTokenMiddleware.middleware";
+import {
+  updateClientSchema,
+  verifyUuidSchema,
+} from "../schemas/client.schemas";
 import { contactSchema } from "../schemas/contact.schemas";
 
 export const contactRoutes = Router();
@@ -8,8 +20,26 @@ export const contactRoutes = Router();
 contactRoutes.post(
   "",
   verifySchemaMiddleware(contactSchema),
+  verifyTokenMiddleware,
   createContactController
 );
-// contactRoutes.get();
-// contactRoutes.patch();
-// contactRoutes.delete();
+contactRoutes.get("", verifyTokenMiddleware, retrieveContactController);
+contactRoutes.get(
+  "/:id",
+  verifyUuidMiddleware(verifyUuidSchema),
+  verifyTokenMiddleware,
+  retrieveEspecificContactController
+);
+contactRoutes.patch(
+  "/:id",
+  verifyUuidMiddleware(verifyUuidSchema),
+  verifySchemaMiddleware(updateClientSchema),
+  verifyTokenMiddleware,
+  updateContactController
+);
+contactRoutes.delete(
+  "/:id",
+  verifyUuidMiddleware(verifyUuidSchema),
+  verifyTokenMiddleware,
+  deleteContactController
+);
