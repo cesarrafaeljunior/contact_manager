@@ -18,7 +18,7 @@ export class Contact {
   @Column({ type: "varchar", length: 50 })
   email: string;
 
-  @Column({ type: "varchar", length: 50, nullable: true })
+  @Column({ type: "varchar", length: 50 })
   telephone: string;
 
   @CreateDateColumn()
