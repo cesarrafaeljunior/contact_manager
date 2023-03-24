@@ -3,6 +3,7 @@ import {
   createContactController,
   deleteContactController,
   retrieveContactController,
+  retrieveEspecificContactController,
   updateContactController,
 } from "../controllers/contact.controllers";
 import { verifySchemaMiddleware } from "../middlewares/verifyDataMiddleware.middlewares";
@@ -23,6 +24,12 @@ contactRoutes.post(
   createContactController
 );
 contactRoutes.get("", verifyTokenMiddleware, retrieveContactController);
+contactRoutes.get(
+  "/:id",
+  verifyUuidMiddleware(verifyUuidSchema),
+  verifyTokenMiddleware,
+  retrieveEspecificContactController
+);
 contactRoutes.patch(
   "/:id",
   verifyUuidMiddleware(verifyUuidSchema),
