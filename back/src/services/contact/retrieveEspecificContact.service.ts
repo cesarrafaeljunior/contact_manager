@@ -8,7 +8,7 @@ export const retrieveEspecificContactService = async (
 ) => {
   const contactRepositry = AppDataSource.getRepository(Contact);
 
-  const contact = await contactRepositry.findOne({
+  const contact: any = await contactRepositry.findOne({
     where: {
       id: contactId,
     },
@@ -20,6 +20,10 @@ export const retrieveEspecificContactService = async (
   if (contact?.client.id != clientId) {
     throw new AppError("Permission denied", 404);
   }
+
+  delete contact.client.password;
+  delete contact.client.username;
+  delete contact.client.createdAt;
 
   return contact;
 };
