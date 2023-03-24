@@ -11,8 +11,7 @@ export const deleteContactService = async (contactId: string) => {
     throw new AppError("Contact not found", 409);
   }
 
-  //   await contactRepository.delete({ id: contactId });
-  await contactRepository.remove(contact);
+  await contactRepository.delete({ id: contactId });
 
   return {};
 };
