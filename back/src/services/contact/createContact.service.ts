@@ -23,5 +23,7 @@ export const createContactService = async (
 
   await contactRepository.save(contactInstance);
 
+  delete contactInstance.client;
+
   return contactInstance;
 };
