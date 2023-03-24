@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createContactService } from "../services/contact/createContact.service";
 import { deleteContactService } from "../services/contact/deleteContact.service";
 import { retrieveContactService } from "../services/contact/retrieveContact.service";
+import { updateContactService } from "../services/contact/updateContact.service";
 
 export const createContactController = async (req: Request, res: Response) => {
   const contact = req.body;
@@ -21,6 +22,20 @@ export const retrieveContactController = async (
   const contactsResponse = await retrieveContactService(clientId);
 
   return res.status(200).json(contactsResponse);
+};
+
+export const updateContactController = async (req: Request, res: Response) => {
+  const clientId = req.client.id;
+  const contactId = req.params.id;
+  const contactData = req.body;
+
+  const contactUpdated = await updateContactService(
+    clientId,
+    contactId,
+    contactData
+  );
+
+  return res.status(200).json(contactUpdated);
 };
 
 export const deleteContactController = async (req: Request, res: Response) => {
