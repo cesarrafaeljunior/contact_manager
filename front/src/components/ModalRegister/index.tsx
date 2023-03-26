@@ -3,13 +3,17 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
   Button,
   Input,
+  InputGroup,
+  InputLeftElement,
+  Icon,
 } from "@chakra-ui/react";
+import { EmailIcon, InfoIcon, LockIcon, PhoneIcon } from "@chakra-ui/icons";
+import { FaUser } from "react-icons/fa";
 
 export const ModalRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,11 +48,31 @@ export const ModalRegister = () => {
             gap="2rem"
             paddingBottom="2rem"
           >
-            <Input placeholder="Enter your full name" />
-            <Input placeholder="Enter username" />
-            <Input placeholder="Enter email" />
-            <Input placeholder="Enter password" />
-            <Input placeholder="Enter telephone" />
+            <InputGroup>
+              <InputLeftElement children={<InfoIcon />} />
+              <Input placeholder="Enter your full name" />
+            </InputGroup>
+            <InputGroup>
+              <InputLeftElement children={<FaUser />} />
+              <Input placeholder="Enter your username" />
+            </InputGroup>
+            <InputGroup>
+              <InputLeftElement children={<EmailIcon />} />
+              <Input placeholder="Enter your email" />
+            </InputGroup>
+            <InputGroup>
+              <InputLeftElement children={<LockIcon />} />
+              <Input placeholder="Enter you password" />
+            </InputGroup>
+            <InputGroup>
+              <InputLeftElement children={<LockIcon />} />
+              <Input placeholder="Confirm your password" />
+            </InputGroup>
+            <InputGroup>
+              <InputLeftElement children={<PhoneIcon />} />
+              <Input placeholder="Enter your telephone" />
+            </InputGroup>
+
             <Button
               width="80%"
               alignSelf="center"
