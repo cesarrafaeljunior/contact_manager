@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
-import { ModalLogin } from "../components/ModalLogin";
+import { ModalLogin } from "../../components/ModalLogin";
 
-export const LandingPage = () => {
+export const HomePage = () => {
   return (
     <Flex
       align="center"
