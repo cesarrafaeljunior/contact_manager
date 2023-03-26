@@ -72,7 +72,6 @@ export const ModalRegister = () => {
               <InputLeftElement children={<PhoneIcon />} />
               <Input placeholder="Enter your telephone" />
             </InputGroup>
-
             <Button
               width="80%"
               alignSelf="center"
