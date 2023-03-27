@@ -68,7 +68,6 @@ export const ModalLogin = () => {
           </InputGroup>
         )}
       ></Controller>
-
       <Button
         width="100%"
         height="50px"
