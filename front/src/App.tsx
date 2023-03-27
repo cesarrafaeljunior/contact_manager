@@ -1,5 +1,10 @@
+import { UserProvider } from "./contexts/user/user.contexts";
 import { RoutesMain } from "./routes";
 
 export const App = () => {
-  return <RoutesMain />;
+  return (
+    <UserProvider>
+      <RoutesMain />;
+    </UserProvider>
+  );
 };
