@@ -1,13 +1,5 @@
+import { EmailIcon, InfoIcon, PhoneIcon } from "@chakra-ui/icons";
 import {
-  EditIcon,
-  EmailIcon,
-  InfoIcon,
-  LockIcon,
-  PhoneIcon,
-} from "@chakra-ui/icons";
-import {
-  IconButton,
-  Icon,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -20,33 +12,21 @@ import {
   ModalCloseButton,
   Button,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
-import { Controller, useForm } from "react-hook-form";
 import { FaUserPlus } from "react-icons/fa";
+import { Controller, useForm } from "react-hook-form";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
-import { IContactUpdate } from "../../interfaces/contacts/contacts.interface";
 
-export const ModalUpdate = ({ fullName, email, telephone, id }: any) => {
+export const ModalClientUpdate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { control, handleSubmit, reset } = useForm<IContactUpdate>({});
+  const { control, handleSubmit, reset } = useForm<any>({});
 
-  const { updateContact } = useUserContext();
+  const { user, updateUser } = useUserContext();
   return (
     <>
-      <IconButton
-        aria-label="Icon Click"
-        border="solid 1px white"
-        borderRadius="100%"
-        transition="ease-in 0.3s"
-        bg="transparent"
-        _hover={{
-          bg: "#DBE3FF",
-          color: "black",
-        }}
-        icon={<EditIcon padding={2} w={10} h={10} />}
-        onClick={onOpen}
-      />
+      <Text onClick={onOpen}>My profile</Text>
       <Modal size="xs" isOpen={isOpen} onClose={onClose} motionPreset="none">
         <ModalOverlay backdropFilter="auto" backdropBlur="2px" />
         <ModalContent zIndex="5000">
@@ -56,13 +36,14 @@ export const ModalUpdate = ({ fullName, email, telephone, id }: any) => {
             fontWeight="700"
             fontSize="1.5rem"
           >
-            Update a contact
+            Update user
           </ModalHeader>
           <ModalBody paddingBottom="2rem">
             <FormControl
               onSubmit={handleSubmit((data) => {
-                updateContact(data, id);
+                updateUser(data, user.id);
                 reset({
+                  username: "",
                   fullName: "",
                   email: "",
                   telephone: "",
@@ -73,6 +54,16 @@ export const ModalUpdate = ({ fullName, email, telephone, id }: any) => {
               gap="2rem"
               as="form"
             >
+              <Controller
+                name="username"
+                control={control}
+                render={({ field }) => (
+                  <InputGroup>
+                    <InputLeftElement children={<FaUserPlus />} />
+                    <Input placeholder="username" {...field} />
+                  </InputGroup>
+                )}
+              />
               <Controller
                 name="fullName"
                 control={control}
@@ -111,11 +102,9 @@ export const ModalUpdate = ({ fullName, email, telephone, id }: any) => {
                 colorScheme={"blue"}
                 fontSize="1.2rem"
                 borderRadius="0.2rem"
-                onClick={() => {
-                  onClose();
-                }}
+                onClick={onClose}
               >
-                To update
+                To create
               </Button>
             </FormControl>
           </ModalBody>

@@ -18,6 +18,7 @@ import { useUserContext } from "../../hooks/user/useUserContext.hook";
 import { IContactsResponse } from "../../interfaces/contacts/contacts.interface";
 import { ModalContact } from "../../components/ModalContactRegister";
 import { Link, useNavigate } from "react-router-dom";
+import { ModalClientUpdate } from "../../components/ModalClientUpdate";
 
 export const DashboardPage = () => {
   const { user, contacts, deleteUser } = useUserContext();
@@ -40,7 +41,7 @@ export const DashboardPage = () => {
       width="100%"
       minHeight="100vh"
       bg="#050134"
-      padding="1rem"
+      padding="1.4rem"
     >
       <Flex as="section" justify="space-between" alignItems="center">
         <Flex
@@ -51,9 +52,13 @@ export const DashboardPage = () => {
           padding="0.2rem 0.8rem 0.2rem 0.3rem"
         >
           <Avatar boxSize={8} />
-          <Text color="white" fontSize="1rem">
-            {user.fullName}
-          </Text>
+
+          <Box>
+            <Text color="white" fontSize="1rem">
+              {user.fullName}
+            </Text>
+            <Text color="white">{user.email}</Text>
+          </Box>
         </Flex>
         <Menu>
           <MenuButton
@@ -78,7 +83,7 @@ export const DashboardPage = () => {
               alignItems="center"
               justifyContent="center"
             >
-              My profile
+              <ModalClientUpdate />
             </MenuItem>
             <MenuItem
               bg="#232151"
@@ -102,14 +107,16 @@ export const DashboardPage = () => {
               display="flex"
               alignItems="center"
               justifyContent="center"
+              onClick={() => deleteUser(user.id)}
             >
-              <Button onClick={() => deleteUser(user.id)}>
-                Delete account
-              </Button>
+              Delete account
             </MenuItem>
           </MenuList>
         </Menu>
       </Flex>
+      <Box marginTop="1rem">
+        <Text color="white">My phone: {user.telephone}</Text>
+      </Box>
       <Flex alignItems="center" justifyContent="space-between" marginTop="3rem">
         <Text as="h1" color="white" fontSize="2rem">
           Contacts
