@@ -1,6 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IContactsResponse } from "../../interfaces/contacts/contacts.interface";
+import {
+  IContactRegister,
+  IContactsResponse,
+} from "../../interfaces/contacts/contacts.interface";
 import { IChildren } from "../../interfaces/react/children.type";
 import {
   IUserLogin,
@@ -16,6 +19,7 @@ export const UserProvider = ({ children }: IChildren) => {
   const [user, setUser] = useState<IUserResponse>({} as IUserResponse);
   const [contacts, setContacts] = useState<IContactsResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [reloading, setReloading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -42,7 +46,7 @@ export const UserProvider = ({ children }: IChildren) => {
     };
 
     loading();
-  }, []);
+  }, [reloading]);
 
   const signUpUser = async (data: IUserRegister) => {
     request
@@ -79,9 +83,25 @@ export const UserProvider = ({ children }: IChildren) => {
       .catch((error) => console.log(error));
   };
 
+  const registerContact = (data: IContactRegister) => {
+    console.log(data);
+    request
+      .post("contact", data)
+      .then((response) => setReloading(!reloading))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <userContext.Provider
-      value={{ signUpUser, loginUser, token, setToken, user, contacts }}
+      value={{
+        signUpUser,
+        loginUser,
+        token,
+        setToken,
+        user,
+        contacts,
+        registerContact,
+      }}
     >
       {children}
     </userContext.Provider>
