@@ -6,6 +6,7 @@ import { DataSource, DataSourceOptions } from "typeorm";
 import { Client } from "./entities/client.entity";
 import { Contact } from "./entities/contact.entity";
 import { InitialMigration1679674569352 as migration_1 } from "./database/migrations/1679674569352-InitialMigration";
+import { CascadeDeleteAdded1679944471193 as migration_2 } from "./database/migrations/1679944471193-CascadeDeleteAdded";
 
 const dataSourceConfig = (): DataSourceOptions => {
   const dbUrl: string | undefined = process.env.PGDATABASE;
@@ -29,7 +30,7 @@ const dataSourceConfig = (): DataSourceOptions => {
     synchronize: false,
     logging: true,
     entities: [Client, Contact],
-    migrations: [migration_1],
+    migrations: [migration_1, migration_2],
   };
 };
 
