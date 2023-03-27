@@ -6,3 +6,8 @@ export interface IUserRegister {
   confirmPassword: string;
   telephone: string;
 }
+
+export interface IUserLogin {
+  username: string;
+  password: string;
+}
