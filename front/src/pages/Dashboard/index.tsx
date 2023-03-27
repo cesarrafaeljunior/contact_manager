@@ -10,14 +10,28 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Box, Flex, Text, Wrap } from "@chakra-ui/layout";
 import { CardContact } from "../../components/CardContact";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
 import { IContactsResponse } from "../../interfaces/contacts/contacts.interface";
 import { ModalContact } from "../../components/ModalContactRegister";
+import { Link, useNavigate } from "react-router-dom";
 
 export const DashboardPage = () => {
   const { user, contacts } = useUserContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    function verifyToken() {
+      const token = localStorage.getItem("contactsM: token");
+      if (!token) {
+        navigate(`/login`, { replace: true });
+      }
+    }
+
+    verifyToken();
+  }, []);
 
   return (
     <Box
@@ -72,7 +86,14 @@ export const DashboardPage = () => {
               alignItems="center"
               justifyContent="center"
             >
-              Logout
+              <Link
+                onClick={() => {
+                  window.localStorage.removeItem("contactsM: token");
+                }}
+                to="/login"
+              >
+                Logout
+              </Link>
             </MenuItem>
             <MenuItem
               bg="#232151"
