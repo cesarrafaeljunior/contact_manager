@@ -1,10 +1,12 @@
-import { ArrowForwardIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { Center, Flex, WrapItem } from "@chakra-ui/layout";
 import { IconButton } from "@chakra-ui/react";
 import { useStyleConfig } from "@chakra-ui/system";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
+import { ModalContactRetrieve } from "../ModalContactRetrieve";
+import { ModalUpdate } from "../ModalContactUpdate";
 
-export const CardContact = ({ fullName, email, id }: any) => {
+export const CardContact = ({ fullName, email, id, telephone }: any) => {
   const CardHover = (props: any) => {
     const { variants, ...rest } = props;
 
@@ -42,17 +44,11 @@ export const CardContact = ({ fullName, email, id }: any) => {
         transition="ease 0.3s"
         _hover={{ opacity: "1" }}
       >
-        <IconButton
-          aria-label="Icon Click"
-          border="solid 1px white"
-          borderRadius="100%"
-          transition="ease-in 0.3s"
-          bg="transparent"
-          _hover={{
-            bg: "#DBE3FF",
-            color: "black",
-          }}
-          icon={<ArrowForwardIcon w={10} h={10} padding={2} />}
+        <ModalContactRetrieve
+          id={id}
+          fullName={fullName}
+          email={email}
+          telephone={telephone}
         />
         <IconButton
           aria-label="Icon Click"
@@ -67,17 +63,11 @@ export const CardContact = ({ fullName, email, id }: any) => {
           icon={<DeleteIcon padding={2} w={10} h={10} />}
           onClick={() => deleteContact(id)}
         />
-        <IconButton
-          aria-label="Icon Click"
-          border="solid 1px white"
-          borderRadius="100%"
-          transition="ease-in 0.3s"
-          bg="transparent"
-          _hover={{
-            bg: "#DBE3FF",
-            color: "black",
-          }}
-          icon={<EditIcon padding={2} w={10} h={10} />}
+        <ModalUpdate
+          fullName={fullName}
+          email={email}
+          telephone={telephone}
+          id={id}
         />
       </CardHover>
       <Center>{fullName}</Center>
