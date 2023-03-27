@@ -117,6 +117,16 @@ export const UserProvider = ({ children }: IChildren) => {
       .catch((err) => console.log(err));
   };
 
+  const updateUser = (data: any, id: string) => {
+    request
+      .patch(`client/${id}`, data)
+      .then((response) => {
+        console.log(response);
+        setReloading(!reloading);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <userContext.Provider
       value={{
@@ -130,6 +140,7 @@ export const UserProvider = ({ children }: IChildren) => {
         updateContact,
         deleteContact,
         deleteUser,
+        updateUser,
       }}
     >
       {children}
