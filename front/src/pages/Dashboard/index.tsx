@@ -1,6 +1,15 @@
 import { Avatar } from "@chakra-ui/avatar";
-import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
+import {
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import { Box, Flex, Text, Wrap } from "@chakra-ui/layout";
 import { CardContact } from "../../components/CardContact";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
@@ -31,7 +40,51 @@ export const DashboardPage = () => {
             {user.fullName}
           </Text>
         </Flex>
-        <SettingsIcon color="white" w={6} h={6} />
+        <Menu>
+          <MenuButton
+            aria-label="Options"
+            as={IconButton}
+            icon={<HamburgerIcon color="white" w={8} h={8} />}
+            bg="none"
+            _hover={{ brightness: "1.5" }}
+            _expanded={{ bg: "none" }}
+            _focus={{ bg: "none" }}
+          />
+          <MenuList
+            bg="#050134"
+            display="flex"
+            flexDirection="column"
+            gap="1rem"
+          >
+            <MenuItem
+              bg="#232151"
+              color="white"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              My profile
+            </MenuItem>
+            <MenuItem
+              bg="#232151"
+              color="white"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              Logout
+            </MenuItem>
+            <MenuItem
+              bg="#232151"
+              color="red.500"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              Delete account
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
       <Flex alignItems="center" justifyContent="space-between" marginTop="3rem">
         <Text as="h1" color="white" fontSize="2rem">
