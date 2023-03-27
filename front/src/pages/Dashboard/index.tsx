@@ -1,11 +1,11 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
-import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { Box, Flex, Text, Wrap } from "@chakra-ui/layout";
-import { FaUserPlus } from "react-icons/fa";
 import { CardContact } from "../../components/CardContact";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
 import { IContactsResponse } from "../../interfaces/contacts/contacts.interface";
+import { ModalContact } from "../../components/ModalContact";
 
 export const DashboardPage = () => {
   const { user, contacts } = useUserContext();
@@ -37,15 +37,7 @@ export const DashboardPage = () => {
         <Text as="h1" color="white" fontSize="2rem">
           Contacts
         </Text>
-        <Icon
-          as={FaUserPlus}
-          w={50}
-          h={50}
-          bg="#4200D8"
-          borderRadius="50%"
-          color="white"
-          padding={3}
-        />
+        <ModalContact />
       </Flex>
       <Box marginTop={10}>
         <InputGroup size="lg">
