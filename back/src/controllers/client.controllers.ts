@@ -14,7 +14,7 @@ export const createClientController = async (req: Request, res: Response) => {
 };
 
 export const retrieveClientController = async (req: Request, res: Response) => {
-  const clientId = req.params.id;
+  const clientId = req.client.id;
 
   const clientResponse = await retrieveClientService(clientId);
 
