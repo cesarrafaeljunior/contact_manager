@@ -36,7 +36,6 @@ export const CardContact = ({ fullName, email }: any) => {
         gap="3"
         width="100%"
         height="100%"
-        zIndex="2000"
         transition="ease 0.3s"
         _hover={{ opacity: "1" }}
       >
