@@ -5,7 +5,7 @@ import { Box, Flex, Text, Wrap } from "@chakra-ui/layout";
 import { CardContact } from "../../components/CardContact";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
 import { IContactsResponse } from "../../interfaces/contacts/contacts.interface";
-import { ModalContact } from "../../components/ModalContact";
+import { ModalContact } from "../../components/ModalContactRegister";
 
 export const DashboardPage = () => {
   const { user, contacts } = useUserContext();
@@ -59,6 +59,7 @@ export const DashboardPage = () => {
                 id={elem.id}
                 fullName={elem.fullName}
                 email={elem.email}
+                telephone={elem.telephone}
               />
             );
           })}
