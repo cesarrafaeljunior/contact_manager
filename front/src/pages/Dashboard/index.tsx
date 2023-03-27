@@ -107,10 +107,9 @@ export const DashboardPage = () => {
               display="flex"
               alignItems="center"
               justifyContent="center"
+              onClick={() => deleteUser(user.id)}
             >
-              <Button onClick={() => deleteUser(user.id)}>
-                Delete account
-              </Button>
+              Delete account
             </MenuItem>
           </MenuList>
         </Menu>

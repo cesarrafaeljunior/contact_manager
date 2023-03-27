@@ -24,10 +24,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { FaUserPlus } from "react-icons/fa";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
-import {
-  IContactRegister,
-  IContactUpdate,
-} from "../../interfaces/contacts/contacts.interface";
+import { IContactUpdate } from "../../interfaces/contacts/contacts.interface";
 
 export const ModalUpdate = ({ fullName, email, telephone, id }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

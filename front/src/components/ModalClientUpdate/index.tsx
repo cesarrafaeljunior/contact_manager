@@ -1,7 +1,5 @@
-import { EmailIcon, InfoIcon, LockIcon, PhoneIcon } from "@chakra-ui/icons";
+import { EmailIcon, InfoIcon, PhoneIcon } from "@chakra-ui/icons";
 import {
-  IconButton,
-  Icon,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -16,23 +14,16 @@ import {
   useDisclosure,
   Text,
 } from "@chakra-ui/react";
-import { Controller, useForm } from "react-hook-form";
 import { FaUserPlus } from "react-icons/fa";
+import { Controller, useForm } from "react-hook-form";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
-import { IContactRegister } from "../../interfaces/contacts/contacts.interface";
 
 export const ModalClientUpdate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { control, handleSubmit, reset } = useForm<IContactRegister>({
-    defaultValues: {
-      fullName: "",
-      email: "",
-      telephone: "",
-    },
-  });
+  const { control, handleSubmit, reset } = useForm<any>({});
 
-  const { registerContact } = useUserContext();
+  const { user, updateUser } = useUserContext();
   return (
     <>
       <Text onClick={onOpen}>My profile</Text>
@@ -45,13 +36,14 @@ export const ModalClientUpdate = () => {
             fontWeight="700"
             fontSize="1.5rem"
           >
-            Create a contact
+            Update user
           </ModalHeader>
           <ModalBody paddingBottom="2rem">
             <FormControl
               onSubmit={handleSubmit((data) => {
-                registerContact(data);
+                updateUser(data, user.id);
                 reset({
+                  username: "",
                   fullName: "",
                   email: "",
                   telephone: "",
@@ -62,6 +54,16 @@ export const ModalClientUpdate = () => {
               gap="2rem"
               as="form"
             >
+              <Controller
+                name="username"
+                control={control}
+                render={({ field }) => (
+                  <InputGroup>
+                    <InputLeftElement children={<FaUserPlus />} />
+                    <Input placeholder="username" {...field} />
+                  </InputGroup>
+                )}
+              />
               <Controller
                 name="fullName"
                 control={control}
@@ -100,9 +102,7 @@ export const ModalClientUpdate = () => {
                 colorScheme={"blue"}
                 fontSize="1.2rem"
                 borderRadius="0.2rem"
-                onClick={() => {
-                  onClose();
-                }}
+                onClick={onClose}
               >
                 To create
               </Button>
