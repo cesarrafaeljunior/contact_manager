@@ -16,6 +16,7 @@ import { EmailIcon, InfoIcon, LockIcon, PhoneIcon } from "@chakra-ui/icons";
 import { FaUser } from "react-icons/fa";
 import { useForm, Controller } from "react-hook-form";
 import { IUserRegister } from "../../interfaces/user/user.interface";
+import { useUserContext } from "../../hooks/user/useUserContext.hook";
 
 export const ModalRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,7 +32,7 @@ export const ModalRegister = () => {
     },
   });
 
-  const signUpUser = (data: IUserRegister) => console.log(data);
+  const { signUpUser } = useUserContext();
 
   return (
     <>
