@@ -8,3 +8,8 @@ export interface IContactsResponse {
 
 export interface IContactRegister
   extends Omit<IContactsResponse, "createdAt" | "id"> {}
+export interface IContactUpdate {
+  fullName?: string;
+  email?: string;
+  telephone?: string;
+}

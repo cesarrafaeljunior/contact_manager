@@ -89,6 +89,15 @@ export const UserProvider = ({ children }: IChildren) => {
       .then(() => setReloading(!reloading))
       .catch((error) => console.log(error));
   };
+  const updateContact = (data: IContactRegister, id: string) => {
+    request
+      .patch(`contact/${id}`, data)
+      .then((response) => {
+        console.log(response);
+        setReloading(!reloading);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const deleteContact = (id: string) => {
     request
@@ -107,6 +116,7 @@ export const UserProvider = ({ children }: IChildren) => {
         user,
         contacts,
         registerContact,
+        updateContact,
         deleteContact,
       }}
     >
