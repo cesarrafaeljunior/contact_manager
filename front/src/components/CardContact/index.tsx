@@ -1,8 +1,9 @@
 import { ArrowForwardIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Center, Flex, WrapItem } from "@chakra-ui/layout";
+import { IconButton } from "@chakra-ui/react";
 import { useStyleConfig } from "@chakra-ui/system";
 
-export const CardContact = () => {
+export const CardContact = ({ fullName, email }: any) => {
   const CardHover = (props: any) => {
     const { variants, ...rest } = props;
 
@@ -39,39 +40,45 @@ export const CardContact = () => {
         transition="ease 0.3s"
         _hover={{ opacity: "1" }}
       >
-        <ArrowForwardIcon
-          padding={2}
-          w={10}
-          h={10}
+        <IconButton
+          aria-label="Icon Click"
           border="solid 1px white"
           borderRadius="100%"
           transition="ease-in 0.3s"
-          _hover={{ bg: "#DBE3FF", color: "black", transform: { scale: 1.1 } }}
-        />
-        <DeleteIcon
-          padding={2}
-          w={10}
-          h={10}
-          border="solid 1px white"
-          borderRadius="100%"
-          transition="ease-in 0.3s"
+          bg="transparent"
           _hover={{
             bg: "#DBE3FF",
             color: "black",
           }}
+          icon={<ArrowForwardIcon w={10} h={10} padding={2} />}
         />
-        <EditIcon
-          padding={2}
-          w={10}
-          h={10}
+        <IconButton
+          aria-label="Icon Click"
           border="solid 1px white"
           borderRadius="100%"
           transition="ease-in 0.3s"
-          _hover={{ bg: "#DBE3FF", color: "black", transform: { scale: 1.1 } }}
+          bg="transparent"
+          _hover={{
+            bg: "#DBE3FF",
+            color: "black",
+          }}
+          icon={<DeleteIcon padding={2} w={10} h={10} />}
+        />
+        <IconButton
+          aria-label="Icon Click"
+          border="solid 1px white"
+          borderRadius="100%"
+          transition="ease-in 0.3s"
+          bg="transparent"
+          _hover={{
+            bg: "#DBE3FF",
+            color: "black",
+          }}
+          icon={<EditIcon padding={2} w={10} h={10} />}
         />
       </CardHover>
-      <Center>Martin</Center>
-      <Center color="#6c6f9c">martin@gmai.com</Center>
+      <Center>{fullName}</Center>
+      <Center color="#6c6f9c">{email}</Center>
     </WrapItem>
   );
 };
