@@ -1,4 +1,4 @@
-import { LockIcon, EmailIcon } from "@chakra-ui/icons";
+import { LockIcon } from "@chakra-ui/icons";
 import {
   FormControl,
   Input,
@@ -7,9 +7,22 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
+import { Controller, useForm } from "react-hook-form";
+import { FaUser } from "react-icons/fa";
+import { useUserContext } from "../../hooks/user/useUserContext.hook";
+import { IUserLogin } from "../../interfaces/user/user.interface";
 import { ModalRegister } from "../ModalRegister";
 
 export const ModalLogin = () => {
+  const { control, handleSubmit } = useForm<IUserLogin>({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+
+  const { loginUser } = useUserContext();
+
   return (
     <FormControl
       display="flex"
@@ -23,6 +36,8 @@ export const ModalLogin = () => {
       margin="0 auto"
       boxShadow="5px 5px 20px 1px"
       bg="#F5F5F5"
+      as="form"
+      onSubmit={handleSubmit(loginUser)}
     >
       <Heading
         as="h2"
@@ -33,15 +48,34 @@ export const ModalLogin = () => {
       >
         Login Page
       </Heading>
-      <InputGroup>
-        <InputLeftElement children={<EmailIcon />} />
-        <Input placeholder="Enter your email address" />
-      </InputGroup>
-      <InputGroup flexDirection="column" justifyContent="space-between">
-        <InputLeftElement children={<LockIcon />} />
-        <Input type="icon" placeholder="Enter your password" />
-      </InputGroup>
-      <Button width="100%" height="50px" colorScheme={"blue"} fontSize="1.3rem">
+      <Controller
+        name="username"
+        control={control}
+        render={({ field }) => (
+          <InputGroup>
+            <InputLeftElement children={<FaUser />} />
+            <Input placeholder="Enter your username" {...field} />
+          </InputGroup>
+        )}
+      ></Controller>
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <InputGroup flexDirection="column" justifyContent="space-between">
+            <InputLeftElement children={<LockIcon />} />
+            <Input type="icon" placeholder="Enter your password" {...field} />
+          </InputGroup>
+        )}
+      ></Controller>
+
+      <Button
+        width="100%"
+        height="50px"
+        colorScheme={"blue"}
+        fontSize="1.3rem"
+        type="submit"
+      >
         Login
       </Button>
       <ModalRegister />
