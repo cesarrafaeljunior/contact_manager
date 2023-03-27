@@ -56,6 +56,7 @@ export const DashboardPage = () => {
             return (
               <CardContact
                 key={elem.id}
+                id={elem.id}
                 fullName={elem.fullName}
                 email={elem.email}
               />

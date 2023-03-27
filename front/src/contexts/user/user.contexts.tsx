@@ -84,10 +84,16 @@ export const UserProvider = ({ children }: IChildren) => {
   };
 
   const registerContact = (data: IContactRegister) => {
-    console.log(data);
     request
       .post("contact", data)
-      .then((response) => setReloading(!reloading))
+      .then(() => setReloading(!reloading))
+      .catch((error) => console.log(error));
+  };
+
+  const deleteContact = (id: string) => {
+    request
+      .delete(`contact/${id}`)
+      .then(() => setReloading(!reloading))
       .catch((error) => console.log(error));
   };
 
@@ -101,6 +107,7 @@ export const UserProvider = ({ children }: IChildren) => {
         user,
         contacts,
         registerContact,
+        deleteContact,
       }}
     >
       {children}

@@ -2,8 +2,9 @@ import { ArrowForwardIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Center, Flex, WrapItem } from "@chakra-ui/layout";
 import { IconButton } from "@chakra-ui/react";
 import { useStyleConfig } from "@chakra-ui/system";
+import { useUserContext } from "../../hooks/user/useUserContext.hook";
 
-export const CardContact = ({ fullName, email }: any) => {
+export const CardContact = ({ fullName, email, id }: any) => {
   const CardHover = (props: any) => {
     const { variants, ...rest } = props;
 
@@ -11,6 +12,8 @@ export const CardContact = ({ fullName, email }: any) => {
 
     return <Flex __css={styles} {...rest} />;
   };
+
+  const { deleteContact } = useUserContext();
 
   return (
     <WrapItem
@@ -62,6 +65,7 @@ export const CardContact = ({ fullName, email }: any) => {
             color: "black",
           }}
           icon={<DeleteIcon padding={2} w={10} h={10} />}
+          onClick={() => deleteContact(id)}
         />
         <IconButton
           aria-label="Icon Click"
