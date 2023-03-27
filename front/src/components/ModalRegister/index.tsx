@@ -15,20 +15,12 @@ import {
 import { EmailIcon, InfoIcon, LockIcon, PhoneIcon } from "@chakra-ui/icons";
 import { FaUser } from "react-icons/fa";
 import { useForm, Controller } from "react-hook-form";
-
-type FormData = {
-  fullName: string;
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  telephone: string;
-};
+import { IUserRegister } from "../../interfaces/user/user.interface";
 
 export const ModalRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<IUserRegister>({
     defaultValues: {
       fullName: "",
       username: "",
@@ -39,7 +31,7 @@ export const ModalRegister = () => {
     },
   });
 
-  const onSubmit = (data: {}) => console.log(data);
+  const signUpUser = (data: IUserRegister) => console.log(data);
 
   return (
     <>
@@ -68,7 +60,7 @@ export const ModalRegister = () => {
           </ModalHeader>
           <ModalBody paddingBottom="2rem">
             <FormControl
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(signUpUser)}
               display="flex"
               flexDirection="column"
               gap="2rem"
