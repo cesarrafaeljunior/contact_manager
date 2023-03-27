@@ -1,8 +1,12 @@
-import { ArrowForwardIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { Center, Flex, WrapItem } from "@chakra-ui/layout";
+import { IconButton } from "@chakra-ui/react";
 import { useStyleConfig } from "@chakra-ui/system";
+import { useUserContext } from "../../hooks/user/useUserContext.hook";
+import { ModalContactRetrieve } from "../ModalContactRetrieve";
+import { ModalUpdate } from "../ModalContactUpdate";
 
-export const CardContact = () => {
+export const CardContact = ({ fullName, email, id, telephone }: any) => {
   const CardHover = (props: any) => {
     const { variants, ...rest } = props;
 
@@ -10,6 +14,8 @@ export const CardContact = () => {
 
     return <Flex __css={styles} {...rest} />;
   };
+
+  const { deleteContact } = useUserContext();
 
   return (
     <WrapItem
@@ -35,43 +41,37 @@ export const CardContact = () => {
         gap="3"
         width="100%"
         height="100%"
-        zIndex="2000"
         transition="ease 0.3s"
         _hover={{ opacity: "1" }}
       >
-        <ArrowForwardIcon
-          padding={2}
-          w={10}
-          h={10}
-          border="solid 1px white"
-          borderRadius="100%"
-          transition="ease-in 0.3s"
-          _hover={{ bg: "#DBE3FF", color: "black", transform: { scale: 1.1 } }}
+        <ModalContactRetrieve
+          id={id}
+          fullName={fullName}
+          email={email}
+          telephone={telephone}
         />
-        <DeleteIcon
-          padding={2}
-          w={10}
-          h={10}
+        <IconButton
+          aria-label="Icon Click"
           border="solid 1px white"
           borderRadius="100%"
           transition="ease-in 0.3s"
+          bg="transparent"
           _hover={{
             bg: "#DBE3FF",
             color: "black",
           }}
+          icon={<DeleteIcon padding={2} w={10} h={10} />}
+          onClick={() => deleteContact(id)}
         />
-        <EditIcon
-          padding={2}
-          w={10}
-          h={10}
-          border="solid 1px white"
-          borderRadius="100%"
-          transition="ease-in 0.3s"
-          _hover={{ bg: "#DBE3FF", color: "black", transform: { scale: 1.1 } }}
+        <ModalUpdate
+          fullName={fullName}
+          email={email}
+          telephone={telephone}
+          id={id}
         />
       </CardHover>
-      <Center>Martin</Center>
-      <Center color="#6c6f9c">martin@gmai.com</Center>
+      <Center>{fullName}</Center>
+      <Center color="#6c6f9c">{email}</Center>
     </WrapItem>
   );
 };

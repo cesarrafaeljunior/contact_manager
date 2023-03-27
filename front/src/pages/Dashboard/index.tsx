@@ -1,11 +1,15 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
-import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { Box, Flex, Text, Wrap } from "@chakra-ui/layout";
-import { FaUserPlus } from "react-icons/fa";
 import { CardContact } from "../../components/CardContact";
+import { useUserContext } from "../../hooks/user/useUserContext.hook";
+import { IContactsResponse } from "../../interfaces/contacts/contacts.interface";
+import { ModalContact } from "../../components/ModalContactRegister";
 
 export const DashboardPage = () => {
+  const { user, contacts } = useUserContext();
+
   return (
     <Box
       as="section"
@@ -24,7 +28,7 @@ export const DashboardPage = () => {
         >
           <Avatar boxSize={8} />
           <Text color="white" fontSize="1rem">
-            Cesar
+            {user.fullName}
           </Text>
         </Flex>
         <SettingsIcon color="white" w={6} h={6} />
@@ -33,15 +37,7 @@ export const DashboardPage = () => {
         <Text as="h1" color="white" fontSize="2rem">
           Contacts
         </Text>
-        <Icon
-          as={FaUserPlus}
-          w={50}
-          h={50}
-          bg="#4200D8"
-          borderRadius="50%"
-          color="white"
-          padding={3}
-        />
+        <ModalContact />
       </Flex>
       <Box marginTop={10}>
         <InputGroup size="lg">
@@ -56,7 +52,17 @@ export const DashboardPage = () => {
           Aa
         </Text>
         <Wrap>
-          <CardContact />
+          {contacts.map((elem: IContactsResponse) => {
+            return (
+              <CardContact
+                key={elem.id}
+                id={elem.id}
+                fullName={elem.fullName}
+                email={elem.email}
+                telephone={elem.telephone}
+              />
+            );
+          })}
         </Wrap>
       </Box>
     </Box>
