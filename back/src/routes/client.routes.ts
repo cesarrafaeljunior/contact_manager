@@ -22,13 +22,7 @@ clientRoutes.post(
   verifySchemaMiddleware(createClientSchema),
   createClientController
 );
-clientRoutes.get(
-  "/:id",
-  verifyUuidMiddleware(verifyUuidSchema),
-  verifyTokenMiddleware,
-  verifyOwnerAccountMiddleware,
-  retrieveClientController
-);
+clientRoutes.get("", verifyTokenMiddleware, retrieveClientController);
 clientRoutes.patch(
   "/:id",
   verifyUuidMiddleware(verifyUuidSchema),

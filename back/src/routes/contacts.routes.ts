@@ -9,11 +9,8 @@ import {
 import { verifySchemaMiddleware } from "../middlewares/verifyDataMiddleware.middlewares";
 import { verifyUuidMiddleware } from "../middlewares/verifyIsValidUuid.middleware";
 import { verifyTokenMiddleware } from "../middlewares/verifyTokenMiddleware.middleware";
-import {
-  updateClientSchema,
-  verifyUuidSchema,
-} from "../schemas/client.schemas";
-import { contactSchema } from "../schemas/contact.schemas";
+import { verifyUuidSchema } from "../schemas/client.schemas";
+import { contactSchema, updateContactSchema } from "../schemas/contact.schemas";
 
 export const contactRoutes = Router();
 
@@ -33,7 +30,7 @@ contactRoutes.get(
 contactRoutes.patch(
   "/:id",
   verifyUuidMiddleware(verifyUuidSchema),
-  verifySchemaMiddleware(updateClientSchema),
+  verifySchemaMiddleware(updateContactSchema),
   verifyTokenMiddleware,
   updateContactController
 );

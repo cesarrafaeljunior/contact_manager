@@ -11,3 +11,9 @@ export interface IUserLogin {
   username: string;
   password: string;
 }
+
+export interface IUserResponse
+  extends Omit<IUserRegister, "password" | "confirmPassword"> {
+  id: string;
+  cratedAt: Date;
+}
