@@ -1,6 +1,7 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
 import {
+  Button,
   IconButton,
   Input,
   InputGroup,
@@ -19,7 +20,7 @@ import { ModalContact } from "../../components/ModalContactRegister";
 import { Link, useNavigate } from "react-router-dom";
 
 export const DashboardPage = () => {
-  const { user, contacts } = useUserContext();
+  const { user, contacts, deleteUser } = useUserContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -102,7 +103,9 @@ export const DashboardPage = () => {
               alignItems="center"
               justifyContent="center"
             >
-              Delete account
+              <Button onClick={() => deleteUser(user.id)}>
+                Delete account
+              </Button>
             </MenuItem>
           </MenuList>
         </Menu>

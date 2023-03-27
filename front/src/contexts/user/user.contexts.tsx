@@ -106,6 +106,17 @@ export const UserProvider = ({ children }: IChildren) => {
       .catch((error) => console.log(error));
   };
 
+  const deleteUser = (id: string) => {
+    console.log(id);
+    request
+      .delete(`client/${id}`)
+      .then((res) => {
+        localStorage.removeItem("contactsM: token");
+        navigate("/login", { replace: true });
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <userContext.Provider
       value={{
@@ -118,6 +129,7 @@ export const UserProvider = ({ children }: IChildren) => {
         registerContact,
         updateContact,
         deleteContact,
+        deleteUser,
       }}
     >
       {children}
