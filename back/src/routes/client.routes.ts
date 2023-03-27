@@ -7,7 +7,6 @@ import {
 } from "../controllers/client.controllers";
 import { verifySchemaMiddleware } from "../middlewares/verifyDataMiddleware.middlewares";
 import { verifyUuidMiddleware } from "../middlewares/verifyIsValidUuid.middleware";
-import { verifyOwnerAccountMiddleware } from "../middlewares/verifyOwnerAccountMiddleware.middleware";
 import { verifyTokenMiddleware } from "../middlewares/verifyTokenMiddleware.middleware";
 import {
   createClientSchema,
@@ -28,13 +27,11 @@ clientRoutes.patch(
   verifyUuidMiddleware(verifyUuidSchema),
   verifySchemaMiddleware(updateClientSchema),
   verifyTokenMiddleware,
-  verifyOwnerAccountMiddleware,
   updateClientController
 );
 clientRoutes.delete(
   "/:id",
   verifyUuidMiddleware(verifyUuidSchema),
   verifyTokenMiddleware,
-  verifyOwnerAccountMiddleware,
   deleteClientController
 );

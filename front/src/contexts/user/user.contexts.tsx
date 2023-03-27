@@ -68,6 +68,10 @@ export const UserProvider = ({ children }: IChildren) => {
         localStorage.clear();
         localStorage.setItem("contactsM: token", token);
         request
+          .get("contact")
+          .then(({ data }) => setContacts(data.contacts))
+          .catch((error) => console.log(error));
+        request
           .get("client")
           .then(({ data }) => {
             setUser(data);
@@ -76,10 +80,6 @@ export const UserProvider = ({ children }: IChildren) => {
           .catch((error) => console.log(error));
         navigate("/dashboard", { replace: true });
       })
-      .catch((error) => console.log(error));
-    request
-      .get("/contact")
-      .then(({ data }) => setContacts(data))
       .catch((error) => console.log(error));
   };
 
@@ -106,6 +106,17 @@ export const UserProvider = ({ children }: IChildren) => {
       .catch((error) => console.log(error));
   };
 
+  const deleteUser = (id: string) => {
+    console.log(id);
+    request
+      .delete(`client/${id}`)
+      .then((res) => {
+        localStorage.removeItem("contactsM: token");
+        navigate("/login", { replace: true });
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <userContext.Provider
       value={{
@@ -118,6 +129,7 @@ export const UserProvider = ({ children }: IChildren) => {
         registerContact,
         updateContact,
         deleteContact,
+        deleteUser,
       }}
     >
       {children}
