@@ -4,8 +4,12 @@ import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { Box, Flex, Text, Wrap } from "@chakra-ui/layout";
 import { FaUserPlus } from "react-icons/fa";
 import { CardContact } from "../../components/CardContact";
+import { useUserContext } from "../../hooks/user/useUserContext.hook";
+import { IContactsResponse } from "../../interfaces/contacts/contacts.interface";
 
 export const DashboardPage = () => {
+  const { user, contacts } = useUserContext();
+
   return (
     <Box
       as="section"
@@ -24,7 +28,7 @@ export const DashboardPage = () => {
         >
           <Avatar boxSize={8} />
           <Text color="white" fontSize="1rem">
-            Cesar
+            {user.fullName}
           </Text>
         </Flex>
         <SettingsIcon color="white" w={6} h={6} />
@@ -56,7 +60,15 @@ export const DashboardPage = () => {
           Aa
         </Text>
         <Wrap>
-          <CardContact />
+          {contacts.map((elem: IContactsResponse) => {
+            return (
+              <CardContact
+                key={elem.id}
+                fullName={elem.fullName}
+                email={elem.email}
+              />
+            );
+          })}
         </Wrap>
       </Box>
     </Box>
