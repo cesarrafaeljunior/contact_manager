@@ -5,3 +5,6 @@ export interface IContactsResponse {
   createdAt: string;
   telephone: string;
 }
+
+export interface IContactRegister
+  extends Omit<IContactsResponse, "createdAt" | "id"> {}
