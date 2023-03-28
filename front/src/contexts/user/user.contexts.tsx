@@ -11,6 +11,7 @@ import {
   IUserResponse,
 } from "../../interfaces/user/user.interface";
 import { request } from "../../services/axios.service";
+import { toast } from "react-toastify";
 
 export const userContext = createContext<any>([] as any);
 
@@ -48,17 +49,43 @@ export const UserProvider = ({ children }: IChildren) => {
     loading();
   }, [reloading]);
 
-  const signUpUser = async (data: IUserRegister) => {
+  const signUpUser = (data: IUserRegister) => {
     request
       .post("client", data)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        toast.success("Sign up success!", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .catch((error) => {
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
 
   const loginUser = (data: IUserLogin) => {
     request
       .post("login", data)
       .then((response) => {
+        toast.success("Logged user", {
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         const { token } = response.data;
 
         request.defaults.headers.authorization = `Bearer ${token}`;
@@ -80,30 +107,93 @@ export const UserProvider = ({ children }: IChildren) => {
           .catch((error) => console.log(error));
         navigate("/dashboard", { replace: true });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
 
   const registerContact = (data: IContactRegister) => {
     request
       .post("contact", data)
-      .then(() => setReloading(!reloading))
-      .catch((error) => console.log(error));
+      .then(() => {
+        toast.success("Contact registered!", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setReloading(!reloading);
+      })
+      .catch((error) => {
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
   const updateContact = (data: IContactRegister, id: string) => {
     request
       .patch(`contact/${id}`, data)
       .then((response) => {
-        console.log(response);
+        toast.success("Contact Updated!", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         setReloading(!reloading);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
 
   const deleteContact = (id: string) => {
     request
       .delete(`contact/${id}`)
-      .then(() => setReloading(!reloading))
-      .catch((error) => console.log(error));
+      .then(() => {
+        toast.success("Contact deleted!", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setReloading(!reloading);
+      })
+      .catch((error) => {
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
 
   const deleteUser = (id: string) => {
@@ -111,20 +201,54 @@ export const UserProvider = ({ children }: IChildren) => {
     request
       .delete(`client/${id}`)
       .then((res) => {
+        toast.success("Account deleted", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         localStorage.removeItem("contactsM: token");
         navigate("/login", { replace: true });
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
 
   const updateUser = (data: any, id: string) => {
+    console.log(data);
     request
       .patch(`client/${id}`, data)
       .then((response) => {
-        console.log(response);
+        toast.success("User updated", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         setReloading(!reloading);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
 
   return (

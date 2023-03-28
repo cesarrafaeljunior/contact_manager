@@ -6,19 +6,27 @@ import {
   Button,
   InputGroup,
   InputLeftElement,
+  Text,
 } from "@chakra-ui/react";
 import { Controller, useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
 import { IUserLogin } from "../../interfaces/user/user.interface";
 import { ModalRegister } from "../ModalRegister";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../../schemas/login.schema";
 
 export const ModalLogin = () => {
-  const { control, handleSubmit } = useForm<IUserLogin>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserLogin>({
     defaultValues: {
       username: "",
       password: "",
     },
+    resolver: yupResolver(loginSchema),
   });
 
   const { loginUser } = useUserContext();
@@ -52,19 +60,25 @@ export const ModalLogin = () => {
         name="username"
         control={control}
         render={({ field }) => (
-          <InputGroup>
+          <InputGroup flexDirection="column" alignItems="center">
             <InputLeftElement children={<FaUser />} />
             <Input placeholder="Enter your username" {...field} />
+            <Text color={"red.500"} fontWeight="600">
+              {errors.username?.message}
+            </Text>
           </InputGroup>
         )}
-      ></Controller>
+      />
       <Controller
         name="password"
         control={control}
         render={({ field }) => (
-          <InputGroup flexDirection="column" justifyContent="space-between">
+          <InputGroup flexDirection="column" alignItems="center">
             <InputLeftElement children={<LockIcon />} />
             <Input type="icon" placeholder="Enter your password" {...field} />
+            <Text color={"red.500"} fontWeight="600">
+              {errors.password?.message}
+            </Text>
           </InputGroup>
         )}
       ></Controller>

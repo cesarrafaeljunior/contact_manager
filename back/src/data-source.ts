@@ -1,12 +1,11 @@
 // src/data-source.ts
 import "dotenv/config";
-import path from "path";
+
 import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
 import { Client } from "./entities/client.entity";
 import { Contact } from "./entities/contact.entity";
-import { InitialMigration1679674569352 as migration_1 } from "./database/migrations/1679674569352-InitialMigration";
-import { CascadeDeleteAdded1679944471193 as migration_2 } from "./database/migrations/1679944471193-CascadeDeleteAdded";
+import { InitialMigration1679970227733 as migration_1 } from "./database/migrations/1679970227733-InitialMigration";
 
 const dataSourceConfig = (): DataSourceOptions => {
   const dbUrl: string | undefined = process.env.PGDATABASE;
@@ -21,6 +20,7 @@ const dataSourceConfig = (): DataSourceOptions => {
       database: ":memory:",
       synchronize: true,
       entities: [Client, Contact],
+      migrations: [migration_1],
     };
   }
 
@@ -30,7 +30,7 @@ const dataSourceConfig = (): DataSourceOptions => {
     synchronize: false,
     logging: true,
     entities: [Client, Contact],
-    migrations: [migration_1, migration_2],
+    migrations: [migration_1],
   };
 };
 

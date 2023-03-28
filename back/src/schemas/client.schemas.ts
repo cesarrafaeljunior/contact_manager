@@ -3,7 +3,7 @@ import { z } from "zod";
 const createClientSchema = z.object({
   fullName: z.string().min(5).max(25),
   username: z.string().min(4).max(25),
-  email: z.string().email().max(25),
+  email: z.string().email(),
   password: z.string().min(8),
   telephone: z.string().min(12).max(20),
 });
