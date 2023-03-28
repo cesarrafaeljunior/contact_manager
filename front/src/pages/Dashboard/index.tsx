@@ -132,9 +132,6 @@ export const DashboardPage = () => {
         </InputGroup>
       </Box>
       <Box display="flex" flexDirection="column" gap="0.5rem">
-        <Text color="white" marginTop="2rem">
-          Aa
-        </Text>
         <Wrap>
           {contacts.map((elem: IContactsResponse) => {
             return (

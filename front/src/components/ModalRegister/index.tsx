@@ -11,17 +11,24 @@ import {
   InputGroup,
   InputLeftElement,
   FormControl,
+  Text,
 } from "@chakra-ui/react";
 import { EmailIcon, InfoIcon, LockIcon, PhoneIcon } from "@chakra-ui/icons";
 import { FaUser } from "react-icons/fa";
 import { useForm, Controller } from "react-hook-form";
 import { IUserRegister } from "../../interfaces/user/user.interface";
 import { useUserContext } from "../../hooks/user/useUserContext.hook";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { registerSchema } from "../../schemas/register.schema";
 
 export const ModalRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { control, handleSubmit } = useForm<IUserRegister>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserRegister>({
     defaultValues: {
       fullName: "",
       username: "",
@@ -30,6 +37,7 @@ export const ModalRegister = () => {
       confirmPassword: "",
       telephone: "",
     },
+    resolver: yupResolver(registerSchema),
   });
 
   const { signUpUser } = useUserContext();
@@ -48,7 +56,7 @@ export const ModalRegister = () => {
       >
         New user? Register now
       </Button>
-      <Modal size="xs" isOpen={isOpen} onClose={onClose} motionPreset="none">
+      <Modal size="sm" isOpen={isOpen} onClose={onClose} motionPreset="none">
         <ModalOverlay backdropFilter="auto" backdropBlur="2px" />
         <ModalContent>
           <ModalHeader
@@ -71,9 +79,12 @@ export const ModalRegister = () => {
                 name="fullName"
                 control={control}
                 render={({ field }) => (
-                  <InputGroup>
+                  <InputGroup flexDirection="column" alignItems="center">
                     <InputLeftElement children={<InfoIcon />} />
                     <Input placeholder="Enter your full name" {...field} />
+                    <Text color={"red.500"} fontWeight="600">
+                      {errors.fullName?.message}
+                    </Text>
                   </InputGroup>
                 )}
               />
@@ -81,52 +92,75 @@ export const ModalRegister = () => {
                 name="username"
                 control={control}
                 render={({ field }) => (
-                  <InputGroup>
+                  <InputGroup flexDirection="column" alignItems="center">
                     <InputLeftElement children={<FaUser />} />
                     <Input placeholder="Enter your username" {...field} />
+                    <Text color={"red.500"} fontWeight="600">
+                      {errors.username?.message}
+                    </Text>
                   </InputGroup>
                 )}
-              ></Controller>
+              />
               <Controller
                 name="email"
                 control={control}
                 render={({ field }) => (
-                  <InputGroup>
+                  <InputGroup flexDirection="column" alignItems="center">
                     <InputLeftElement children={<EmailIcon />} />
                     <Input placeholder="Enter your email" {...field} />
+                    <Text color={"red.500"} fontWeight="600">
+                      {errors.email?.message}
+                    </Text>
                   </InputGroup>
                 )}
-              ></Controller>
+              />
               <Controller
                 name="password"
                 control={control}
                 render={({ field }) => (
-                  <InputGroup>
+                  <InputGroup flexDirection="column" alignItems="center">
                     <InputLeftElement children={<LockIcon />} />
-                    <Input placeholder="Enter you password" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Enter you password"
+                      {...field}
+                    />
+                    <Text color={"red.500"} fontWeight="600">
+                      {errors.password?.message}
+                    </Text>
                   </InputGroup>
                 )}
-              ></Controller>
+              />
               <Controller
                 name="confirmPassword"
                 control={control}
                 render={({ field }) => (
-                  <InputGroup>
+                  <InputGroup flexDirection="column" alignItems="center">
                     <InputLeftElement children={<LockIcon />} />
-                    <Input placeholder="Confirm your password" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Confirm your password"
+                      {...field}
+                    />
+                    <Text color={"red.500"} fontWeight="600">
+                      {errors.confirmPassword?.message}
+                    </Text>
                   </InputGroup>
                 )}
-              ></Controller>
+              />
               <Controller
                 name="telephone"
                 control={control}
                 render={({ field }) => (
-                  <InputGroup>
+                  <InputGroup flexDirection="column" alignItems="center">
                     <InputLeftElement children={<PhoneIcon />} />
                     <Input placeholder="Enter your telephone" {...field} />
+                    <Text color={"red.500"} fontWeight="600">
+                      {errors.telephone?.message}
+                    </Text>
                   </InputGroup>
                 )}
-              ></Controller>
+              />
               <Button
                 type="submit"
                 width="80%"
