@@ -21,7 +21,7 @@ export class Client {
   @Column({ type: "varchar", length: 25 })
   username: string;
 
-  @Column({ type: "varchar", length: 25 })
+  @Column({ type: "varchar" })
   email: string;
 
   @Column({ type: "varchar", length: 120 })
