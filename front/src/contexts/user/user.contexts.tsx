@@ -63,6 +63,7 @@ export const UserProvider = ({ children }: IChildren) => {
         });
       })
       .catch((error) => {
+        console.log(error);
         toast.error(`${error.response.data.message}`, {
           position: "top-right",
           hideProgressBar: true,
