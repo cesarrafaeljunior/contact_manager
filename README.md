@@ -51,7 +51,6 @@ PGUSERNAME = //seu usuário postgres
 PGPASSWORD = //sua senha postgres
 PGDATABASE = //sua database
 PGPORT = //porta do postgres
-PORT = //porta que será executada a aplicção
 SECRET_KEY = //chave secreta
 ```
 - Após a configuração das variáveis, rode o comando de migrações:
